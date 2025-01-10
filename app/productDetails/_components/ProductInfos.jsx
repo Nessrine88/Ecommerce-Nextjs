@@ -69,7 +69,7 @@ const ProductInfos = ({ product }) => {
                 <h2 className="text-[22px] text-dark-olive mt-5 flex items-center justify-between">
                     {product?.price} dt
                     <button
-                        className="flex items-center gap-3 bg-moss-green text-earth-light hover:bg-moss-dark px-10 py-2 rounded-lg transition-colors"
+                        className="flex items-center gap-3 bg-moss-green text-earth-light hover:bg-moss-dark md:px-10 px-2 py-2 rounded-lg transition-colors"
                         onClick={() => handleAddToCart()}
                     >
                         <ShoppingCart className="h-5 w-5" />
