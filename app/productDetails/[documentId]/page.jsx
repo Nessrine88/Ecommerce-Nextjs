@@ -5,7 +5,8 @@ import ProductList from '../../_components/ProductList';
 import React, { useEffect, useState } from 'react'
 import ProductBanner from '../_components/ProductBanner'
 import ProductInfos from '../_components/ProductInfos'
-import { usePathname } from 'next/navigation'
+import { usePathname } from 'next/navigation';
+import Ingredients from '../../_components/Ingredients'
 
 const ProductDetails = ({ params }) => {
   // Unwrap params with React.use() to handle the promise
@@ -54,12 +55,16 @@ const ProductDetails = ({ params }) => {
   }
 
   return (
-    <div className='px-10 md:px-28 py-28 max-w-7xl mx-auto'>
+    <div className='px-10 md:px-52 py-28 '>
       <BreadCrumb path={path} />
       <div className='flex flex-col md:flex-row lg:flex-row mt-10 items-center gap-28'>
         <ProductBanner product={productDetails} />
         <ProductInfos product={productDetails} />  {/* Pass product details to ProductInfos */}
       </div>
+      <div className='mt-28 '>
+      <Ingredients product={productDetails} />
+      </div>
+
       <div>
         <h2 className='mt-24 text-xl mb-4'>Similar Products</h2>
         <ProductList productList={productList} />

@@ -20,7 +20,7 @@ const ProductSection = () => {
     };
 
     return (
-        <div className='px-10 md:px-20'>
+        <div className='px-10 md:px-20 mt-28'>
            <ProductList productList={productList} />
         </div>
     );

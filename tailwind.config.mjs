@@ -10,7 +10,11 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        buttons:"var(--buttons)"
+        buttons:"var(--buttons)",
+        'leaf-green': '#7da43b',
+        'light-green': '#98c676',
+        'earth-brown': '#355e3b',
+        'light-earth': '#f0f8f0',
       },
     },
   },
