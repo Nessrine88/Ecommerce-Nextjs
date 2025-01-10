@@ -37,39 +37,39 @@ const ProductInfos = ({ product }) => {
 
     return (
         product ? (
-            <div className="p-5 bg-teal-950 rounded-lg text-teal-100 shadow-lg">
+            <div className="p-5 bg-sand-200 rounded-lg text-earth-brown shadow-lg bg-black">
                 {/* Title */}
-                <h2 className="text-[30px] font-bold text-teal-50">
+                <h2 className="text-[30px] font-bold text-dark-olive">
                     {product?.title}
                 </h2>
 
                 {/* Category */}
-                <h2 className="text-[15px] text-teal-300 mt-2">
+                <h2 className="text-[15px] text-olive-green mt-2">
                     Category: {product?.category}
                 </h2>
 
                 {/* Description */}
-                <h2 className="text-[15px] text-teal-200 mt-5 leading-relaxed">
+                <h2 className="text-[15px] text-earth-dark mt-5 leading-relaxed">
                     {product?.description}
                 </h2>
 
                 {/* Instant Delivery Status */}
                 <h2 className="text-[11px] mt-5 flex items-center gap-1">
                     {product?.instantDelivery ? (
-                        <div className="text-teal-100 flex items-center gap-2 text-[14px]">
-                            <BadgeCheck className="text-yellow-400 h-5 w-5" />
+                        <div className="text-yellow-300 flex items-center gap-2 text-[14px]">
+                            <BadgeCheck className="text-yellow-300 h-5 w-5" />
                             Eligible for instant delivery
                         </div>
                     ) : (
-                        <span className="text-red-400">Not eligible for instant delivery</span>
+                        <span className="text-red-500">Not eligible for instant delivery</span>
                     )}
                 </h2>
 
                 {/* Price and Add to Cart */}
-                <h2 className="text-[22px] text-teal-50 mt-5 flex items-center justify-between">
+                <h2 className="text-[22px] text-dark-olive mt-5 flex items-center justify-between">
                     {product?.price} dt
                     <button
-                        className="flex items-center gap-3 bg-green-700 text-teal-100 hover:bg-green-600 px-10 py-2 rounded-lg transition-colors"
+                        className="flex items-center gap-3 bg-moss-green text-earth-light hover:bg-moss-dark px-10 py-2 rounded-lg transition-colors"
                         onClick={() => handleAddToCart()}
                     >
                         <ShoppingCart className="h-5 w-5" />

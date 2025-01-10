@@ -55,13 +55,13 @@ const ProductDetails = ({ params }) => {
   }
 
   return (
-    <div className='px-10 md:px-52 py-28 '>
+    <div className='px-10 md:px-28 py-28 bg-[url("https://images.unsplash.com/photo-1566126559007-b2890349d687?q=80&w=2000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")] '>
       <BreadCrumb path={path} />
-      <div className='flex flex-col md:flex-row lg:flex-row mt-10 items-center gap-28'>
+      <div className='flex flex-col  lg:flex-row mt-10 items-center gap-28'>
         <ProductBanner product={productDetails} />
         <ProductInfos product={productDetails} />  {/* Pass product details to ProductInfos */}
       </div>
-      <div className='mt-28 '>
+      <div className='mt-10 '>
       <Ingredients product={productDetails} />
       </div>
 
