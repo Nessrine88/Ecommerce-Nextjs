@@ -14,9 +14,9 @@ const ProductBanner = ({ product }) => {
             className="h-56 w-full rounded-bl-3xl rounded-tr-3xl object-center sm:h-64 lg:h-72"
           />
           <div className="mt-2 sm:flex sm:items-center justify-center sm:gap-4">
-            <strong className="font-bold text-[30px] text-center px-5">{product.title}</strong>
+            <strong className="font-bold text-[30px] text-center px-5 text-white">{product.title}</strong>
             <span className="hidden sm:block sm:h-px sm:w-8 sm:bg-yellow-500 px-5"></span>
-            <p className="text-[14px] opacity-50 sm:mt-0 px-5">Sultan-oils</p>
+            <p className="text-[16px] opacity-50 sm:mt-0 px-5 text-white font-bold">Sultan-oils</p>
           </div>
         </div>
       ) : (

@@ -23,9 +23,7 @@ export const ProductItem = ({ item }) => {
           <p className="mt-2 max-w-sm text-teal-200 opacity-90 line-clamp-3">
             {item.description}
           </p>
-          <div className="mt-2 text-teal-50 font-semibold">
-            {item.price}dt{/* Display product price */}
-          </div>
+
         </div>
       </div>
     </Link>

@@ -23,10 +23,10 @@ const geistMono = Roboto({
 // };
 
 export default function RootLayout({ children }) {
-  const [cart, setCart] = useState([])
+  const [cart, setCart,updateSelectedPrice] = useState([])
   return (
     <ClerkProvider>
-      <CartContext.Provider value={{cart,setCart}}>
+      <CartContext.Provider value={{cart,setCart,updateSelectedPrice}}>
     <html lang="en">
       <body
         className={` ${geistMono.variable} antialiased`}

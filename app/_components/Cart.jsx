@@ -28,7 +28,7 @@ const Cart = () => {
 
     <div>
       <dt className="inline">Price:</dt>
-      <dd className="inline">{item?.product?.price}dt</dd>
+      <dd className="inline">{item?.updateSelectedPrice}dt</dd>
     </div>
   </dl>
 </div>
