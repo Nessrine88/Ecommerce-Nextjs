@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 const ProductBanner = ({ product }) => {
   return (
-    <div className='w-full h-auto bg-teal-950 shadow-lg rounded-t-lg overflow-hidden'>
+    <div className='min-w-[500px] h-[390px] bg-teal-950 shadow-lg rounded-t-lg overflow-hidden'>
       {product ? (
         <div>
           <Image
