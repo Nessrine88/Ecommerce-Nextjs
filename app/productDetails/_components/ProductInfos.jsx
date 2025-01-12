@@ -22,6 +22,26 @@ const ProductInfos = ({ product }) => {
 
     const { cart, setCart } = useContext(CartContext);
 
+    const quantities = ['50ml', '100ml','250ml', '500ml', '1L', '2L', '3L', '4L', '5L'];
+
+    const handlePrice = (e) => {
+        const selectedQuantity = e.target.value;
+        const index = quantities.indexOf(selectedQuantity);
+
+        if (index !== -1 && product?.Price?.length > 0) {
+            const selectedPrice = product?.Price[index]?.price;
+            if (selectedPrice) {
+                setPrice(selectedPrice);
+            } else {
+                console.log('Price not available for the selected quantity');
+                setPrice(product?.Price?.[0]?.price);
+            }
+        } else {
+            console.log('Invalid quantity selected or price data is not available');
+            setPrice(product?.Price?.[0]?.price);
+        }
+    };
+
     const handleAddToCart = () => {
         if (!user) {
             router.push('/sign-in');
@@ -49,26 +69,6 @@ const ProductInfos = ({ product }) => {
                 .catch((error) => {
                     console.log('error', error);
                 });
-        }
-    };
-
-    const quantities = ['50ml', '100ml','250ml', '500ml', '1L', '2L', '3L', '4L', '5L'];
-
-    const handlePrice = (e) => {
-        const selectedQuantity = e.target.value;
-        const index = quantities.indexOf(selectedQuantity);
-
-        if (index !== -1 && product?.Price?.length > 0) {
-            const selectedPrice = product?.Price[index]?.price;
-            if (selectedPrice) {
-                setPrice(selectedPrice);
-            } else {
-                console.log('Price not available for the selected quantity');
-                setPrice(product?.Price?.[0]?.price);
-            }
-        } else {
-            console.log('Invalid quantity selected or price data is not available');
-            setPrice(product?.Price?.[0]?.price);
         }
     };
 

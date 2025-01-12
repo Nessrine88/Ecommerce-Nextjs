@@ -10,9 +10,7 @@ const ProductSection = () => {
     }, []);
 
     const getLatestProducts_ = () => {
-        ProductApi.getLatestProducts().then(res => {
-            console.log(res.data.data);
-            
+        ProductApi.getLatestProducts().then(res => {   
             setProductList(res.data.data)
         }).catch(error => {
             console.error('Error fetching products:', error);

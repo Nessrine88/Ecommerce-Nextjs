@@ -21,14 +21,10 @@ const Cart = () => {
         console.log('Deleting item with documentId:', documentId); // Debugging
 
         // Perform the delete operation
-        CartApi.deleteCartItem(documentId).then((res) => {
-            console.log('Response after deleting item:', res); // Debugging
-            
+        CartApi.deleteCartItem(documentId).then((res) => {     
             if (res.status === 204) {
-                // Update the cart after successful deletion (no content returned)
                 setCart(prevCart => {
                     const updatedCart = prevCart.filter(item => item.documentId !== documentId);
-                    console.log('Updated cart after deletion:', updatedCart); // Debugging
                     return updatedCart;
                 });
             } else {
@@ -40,7 +36,6 @@ const Cart = () => {
     };
 
     useEffect(() => {
-        console.log('Current cart items:', cart); // Debugging initial cart state
     }, [cart]); // Logs cart every time it changes
 
     return (

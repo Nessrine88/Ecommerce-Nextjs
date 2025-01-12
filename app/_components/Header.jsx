@@ -19,7 +19,6 @@ const Header = () => {
 
   const getCartItems = () => {
     CartApi.getUserCartItems(user.primaryEmailAddress.emailAddress).then(res => {
-      console.log('response cartItems', res.data.data);
       res.data.data.forEach(citem => {
         setCart(oldCart => [
           ...oldCart,

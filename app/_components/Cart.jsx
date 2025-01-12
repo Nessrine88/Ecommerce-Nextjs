@@ -2,8 +2,12 @@ import React, { useContext } from 'react'
 import { CartContext } from '../_context/CartContext'
 import { Link } from 'lucide-react'
 
-const Cart = () => {
-    const {cart, setCart} = useContext(CartContext)
+const Cart = ({selectedPrice}) => {
+  console.log("initialPrice at render:", initialPrice);
+
+  const { cart } = useContext(CartContext);
+
+  console.log("cart:", cart);
   return (
     <div className='h-[600px] w-[400px] bg-gray-100 z-10 rounded-md border shadow-sm absolute mx-10 right-72 top-12 p-5 overflow-auto '>
          <div className="mt-4 space-y-6">
@@ -28,7 +32,7 @@ const Cart = () => {
 
     <div>
       <dt className="inline">Price:</dt>
-      <dd className="inline">{item?.updateSelectedPrice}dt</dd>
+      {/* <dd className="inline">{item.initialPrice}dt</dd> */}
     </div>
   </dl>
 </div>
