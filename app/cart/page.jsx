@@ -1,42 +1,63 @@
 "use client"
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { CartContext } from '../_context/CartContext'
 import Footer from '../_components/Footer'
 import CartApi from '../_components/_utils/CartApi'
 import { useRouter } from 'next/navigation'
 
 const Cart = () => {
-    const router =useRouter()
+    const router = useRouter()
     const { cart, setCart } = useContext(CartContext)
+    const [selectedPrice, setSelectedPrice] = useState({})
+    const quantities = ['50ml', '100ml', '250ml']
 
+    // Function to calculate the total amount
     const getTotalAmount = () => {
         let totalAmount = 0
         cart?.forEach(item => {
-            totalAmount = totalAmount + Number(item?.product?.price)
-        });
+            const price = Number(selectedPrice[item.documentId]) || 
+                          (item?.product?.Price?.[0]?.price ? Number(item?.product?.Price[0]?.price) : 0)
+            totalAmount += price
+        })
         return totalAmount
     }
 
+    // Delete cart item
     const deleteCartItemFromList = (documentId) => {
-        console.log('Deleting item with documentId:', documentId); // Debugging
-
-        // Perform the delete operation
+        console.log('Deleting item with documentId:', documentId)
         CartApi.deleteCartItem(documentId).then((res) => {     
             if (res.status === 204) {
-                setCart(prevCart => {
-                    const updatedCart = prevCart.filter(item => item.documentId !== documentId);
-                    return updatedCart;
-                });
+                setCart(prevCart => prevCart.filter(item => item.documentId !== documentId))
             } else {
-                console.error("Unexpected response status:", res.status);
+                console.error("Unexpected response status:", res.status)
             }
         }).catch(err => {
-            console.error("Error deleting cart item", err); // Error handling
-        });
-    };
+            console.error("Error deleting cart item", err)
+        })
+    }
 
-    useEffect(() => {
-    }, [cart]); // Logs cart every time it changes
+    // Handle change in quantity
+    const handlePriceChange = (e, documentId) => {
+        const selectedQuantity = e.target.value
+        const product = cart.find(item => item.documentId === documentId)
+        const quantityIndex = quantities.indexOf(selectedQuantity)
+
+        if (quantityIndex !== -1 && product?.product?.Price?.[quantityIndex]?.price) {
+            const newPrice = product?.product?.Price[quantityIndex]?.price
+
+            setSelectedPrice(prev => ({
+                ...prev,
+                [documentId]: newPrice // Update price for the selected item
+            }))
+
+            // Update the selected quantity in the cart state
+            setCart(prevCart => prevCart.map(item => 
+                item.documentId === documentId
+                    ? { ...item, selectedQuantity }
+                    : item
+            ))
+        }
+    }
 
     return (
         <section>
@@ -50,8 +71,8 @@ const Cart = () => {
                             <ul className="space-y-4">
                                 <li className="flex items-center gap-4">
                                     <img
-                                        src={item?.product?.image.url}
-                                        alt=""
+                                        src={item?.product?.image?.url}
+                                        alt="Product Image"
                                         className="size-16 rounded object-cover"
                                     />
                                     <div>
@@ -64,8 +85,21 @@ const Cart = () => {
                                         </dl>
                                     </div>
                                     <div className="flex flex-1 items-center justify-end gap-2">
+
+                                        <select 
+                                            onChange={(e) => handlePriceChange(e, item.documentId)} 
+                                            value={item.selectedQuantity || '50ml'} // Bind the value to the selectedQuantity
+                                        >
+                                            {quantities.map((qt) => (
+                                                <option key={qt} value={qt}>
+                                                    {qt}
+                                                </option>
+                                            ))}
+                                        </select>
                                         <div>
-                                            <dd className="inline">{item?.product?.price}</dd>
+                                            <dd className="inline text-green-900 font-bold ">
+                                                {Number(selectedPrice[item.documentId]) || (item?.product?.Price?.[0]?.price ? Number(item?.product?.Price[0]?.price) : 0)}
+                                            </dd>
                                         </div>
                                         <button className="text-gray-600 transition hover:text-red-600" onClick={() => deleteCartItemFromList(item?.documentId)}>
                                             <span className="sr-only">Remove item</span>
@@ -91,13 +125,13 @@ const Cart = () => {
                     ))}
                     <div className="mt-8 flex border-t border-gray-100 pt-8">
                         <div className="w-full max-w-screen space-y-4 justify-end">
-                            <div className="flex justify-between !text-base font-medium">
+                            <div className="flex justify-between !text-base text-green-900 font-bold ">
                                 <h2>Total</h2>
-                                <dd>{getTotalAmount()}</dd>
+                                <dd>{getTotalAmount() || 0}  dt</dd>
                             </div>
                             <div className="flex justify-end">
                                 <button
-                                    onClick={()=> router.push(`/checkout?amount=${getTotalAmount()}`)}
+                                    onClick={() => router.push(`/checkout?amount=${getTotalAmount()}`)}
                                     className="block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
                                 >
                                     Checkout
@@ -105,7 +139,7 @@ const Cart = () => {
                             </div>
                         </div>
                     </div>
-                    <h2 className='text-gray-900 text-4'>Note :All Items will be sent via Email</h2>
+                    <h2 className="text-gray-900 text-4">Note: All Items will be sent via Email</h2>
                 </div>
             </div>
             <Footer />
