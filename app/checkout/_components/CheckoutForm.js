@@ -13,36 +13,36 @@ const CheckoutForm = ({ amount }) => {
   const { cart, setCart } = useContext(CartContext);
   const { user } = useUser();
 
+  // Function to create order and send email
   useEffect(() => {
-    // Automatically create the order when the component is mounted
-    createOrder();
-  }, []);
+    const createOrder = async () => {
+      let productIds = [];
+      cart.forEach((ele) => productIds.push(ele.product.documentId));
 
-  // Function to create the order
-  const createOrder = async () => {
-    let productIds = [];
-    cart.forEach((ele) => productIds.push(ele.product.documentId));
+      const data = {
+        data: {
+          username: user.fullName,
+          email: user.primaryEmailAddress.emailAddress,
+          amount,
+          products: productIds,
+        },
+      };
 
-    const data = {
-      data: {
-        username: user.fullName,
-        email: user.primaryEmailAddress.emailAddress,
-        amount,
-        products: productIds,
-      },
+      try {
+        const res = await OrderApi.createOrder(data);
+        if (res) {
+          console.log('Order created successfully');
+          sendEmail(data);  // Send email after order creation
+        } else {
+          setErrorMessage('Failed to create order');
+        }
+      } catch (error) {
+        setErrorMessage('Error creating order: ' + error.message);
+      }
     };
 
-    try {
-      const res = await OrderApi.createOrder(data);
-      if (res) {
-        console.log('Order created successfully');
-      } else {
-        setErrorMessage('Failed to create order');
-      }
-    } catch (error) {
-      setErrorMessage('Error creating order: ' + error.message);
-    }
-  };
+    createOrder(); // Trigger order creation
+  }, [handleSubmit]);
 
   // Function to handle form submission and payment
   const handleSubmit = async (event) => {
@@ -103,6 +103,15 @@ const CheckoutForm = ({ amount }) => {
         // Optionally handle result
       });
     });
+  };
+
+  const sendEmail = async (orderData) => {
+
+  
+    const res = await fetch('/api/send-email', {
+      method: 'POST',
+
+    })
   };
 
   return (
